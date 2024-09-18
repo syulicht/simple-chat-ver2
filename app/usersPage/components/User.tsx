@@ -58,7 +58,7 @@ function User(props: UserProps) {
     setModalShow(false);
   }
   return (
-    <Link href={{pathname: 'chatSpace', query: {keyword: props.id}}} className={style.user}>
+    <Link href={{pathname: 'friendsPage', query: {keyword: props.id}}} className={style.user}>
     <div><Image className={style.icon} src={`${url}`} alt={"image"} width={100} height={100} style={{objectFit: "contain"}}/></div>
     <div className={style.userContents}>
       <div className={style.name}>{props.user.name}</div>
