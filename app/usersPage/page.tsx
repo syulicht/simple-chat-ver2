@@ -11,7 +11,7 @@ import Sidebar from './components/Sidebar';
 
 
 function Page() {
-  const [users, setUsers] = useState<DocumentData[]>([]);
+  const [users, setUsers] = useState<{data: DocumentData, id: string}[]>([]);
 
   const [modalShow, setModalShow] = useState(false);
 
@@ -25,14 +25,14 @@ function Page() {
 
   useEffect(()=>{
     onSnapshot(collection(db, "users"), (users) => {
-      setUsers(users.docs.map(user => user.data()).sort((a : DocumentData, b : DocumentData) => a.id - b.id));
+      setUsers(users.docs.map(user => {return {data: user.data(), id: user.id}}).sort((a : DocumentData, b : DocumentData) => a.id - b.id));
     })}, []);
   return (
     <div className={style.main}>
       <Sidebar />
       <div className={style.content}>
       <div className={style.usersList}>
-      {users.map((u) => !u.delete && (<User key={u.id} user={u}/>))}
+      {users.map((u) => !u.data.delete && (<User key={u.id} user={u.data} id={u.id}/>))}
       </div>
       <button className={style.addButton} onClick={openUserAddModal}>追加</button>
       </div>

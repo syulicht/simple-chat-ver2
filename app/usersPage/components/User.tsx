@@ -10,6 +10,7 @@ import Link from 'next/link';
 
 type UserProps = {
   user: DocumentData,
+  id : string
 }
 
 function User(props: UserProps) {
@@ -57,7 +58,7 @@ function User(props: UserProps) {
     setModalShow(false);
   }
   return (
-    <Link href={'/chatSpace'} className={style.user}>
+    <Link href={{pathname: 'friendsPage', query: {keyword: props.id}}} className={style.user}>
     <div><Image className={style.icon} src={`${url}`} alt={"image"} width={100} height={100} style={{objectFit: "contain"}}/></div>
     <div className={style.userContents}>
       <div className={style.name}>{props.user.name}</div>
