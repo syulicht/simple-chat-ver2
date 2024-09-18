@@ -24,7 +24,6 @@ const Page = () => {
   return (
     <div>
         {user?.name}
-        {user?.quote}
     </div>
   )
 }
