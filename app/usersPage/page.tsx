@@ -6,12 +6,12 @@ import { DocumentData } from 'firebase/firestore/lite';
 
 import User from './components/User';
 import UserAddModal from './components/UserAddModal';
-import style from './css/page.module.css'
+import style from './css/page.module.css';
 import Sidebar from './components/Sidebar';
 
 
 function Page() {
-  const [users, setUsers] = useState<DocumentData[]>([]);
+  const [users, setUsers] = useState<{property: DocumentData, id: string}[]>([]);
 
   const [modalShow, setModalShow] = useState(false);
 
@@ -25,14 +25,14 @@ function Page() {
 
   useEffect(()=>{
     onSnapshot(collection(db, "users"), (users) => {
-      setUsers(users.docs.map(user => user.data()).sort((a : DocumentData, b : DocumentData) => a.id - b.id));
+      setUsers(users.docs.map(user => {return {property: user.data(), id: user.id}}).sort((a : DocumentData, b : DocumentData) => a.property.id - b.property.id));
     })}, []);
   return (
     <div className={style.main}>
       <Sidebar />
       <div className={style.content}>
       <div className={style.usersList}>
-      {users.map((u) => !u.delete && (<User key={u.id} user={u}/>))}
+      {users.map((u) => !u.property.delete && (<User key={u.id} user={u.property} id={u.id}/>))}
       </div>
       <button className={style.addButton} onClick={openUserAddModal}>追加</button>
       </div>
