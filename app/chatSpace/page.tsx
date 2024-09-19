@@ -14,7 +14,7 @@ const Page = () => {
         onSnapshot(collection(db, 'users'), (users)=>{
             setUsers(users.docs.map(user => {
                 if(user.id === query.get("keyword")){
-                    setUser(user);
+                    setUser(user.data());
                 }
                 return user.data();
             })
