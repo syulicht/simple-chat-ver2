@@ -24,6 +24,7 @@ const Page = () => {
   return (
     <div>
         {user?.name}
+        {user?.email}
     </div>
   )
 }
