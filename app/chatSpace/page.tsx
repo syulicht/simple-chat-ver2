@@ -4,12 +4,18 @@ import { collection, DocumentData, onSnapshot } from 'firebase/firestore';
 import { useSearchParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import Sidebar from '../usersPage/components/Sidebar';
+import AddFriends from './components/AddFriends';
+import '../globals.css';
 
 
 const Page = () => {
     const [users, setUsers] = useState<DocumentData[]>([]);
     const [user, setUser] = useState<DocumentData | null>(null);
+    const [friendIds, setFriendIds] = useState<number[]>([]); 
     const query = useSearchParams();
+    const addFriend = (id: number) => {
+      
+    }
 
     useEffect(() => {
         onSnapshot(collection(db, 'users'), (users)=>{
@@ -20,12 +26,19 @@ const Page = () => {
         });
     }, []);
 
+    useEffect(() => {
+      if(user && user.friends){
+        setFriendIds(user.friends);
+      }
+    }, [user])
+
   return (
-    <>
+    <div className='main'>
+    <Sidebar friendIds={friendIds} users={users}/>
     <div>
-        {users.length}
+      <AddFriends users={users.filter(user => user.delete === false)} addfriend={addFriend}/>
     </div>
-    </>
+    </div>
   )
 }
 
