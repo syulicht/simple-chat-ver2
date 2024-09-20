@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import {db} from "../../lib/firebase/firebase";
 import { collection, onSnapshot } from 'firebase/firestore';
 import { DocumentData } from 'firebase/firestore/lite';
+import '../globals.css';
 
 import User from './components/User';
 import UserAddModal from './components/UserAddModal';
@@ -28,8 +29,8 @@ function Page() {
       setUsers(users.docs.map(user => {return {property: user.data(), id: user.id}}).sort((a : DocumentData, b : DocumentData) => a.property.id - b.property.id));
     })}, []);
   return (
-    <div className={style.main}>
-      <Sidebar />
+    <div className='main'>
+      <Sidebar friendIds={[]} users={users.map(user => user.data)}/>
       <div className={style.content}>
       <div className={style.usersList}>
       {users.map((u) => !u.property.delete && (<User key={u.id} user={u.property} id={u.id}/>))}
