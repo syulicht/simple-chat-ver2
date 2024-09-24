@@ -2,7 +2,7 @@ import React, { FormEvent, useEffect, useState } from 'react'
 import "../../globals.css";
 import {db} from "../../../lib/firebase/firebase";
 import styles from "../css/page.module.css";
-import { collection, DocumentData, getDocs, query, where, doc, setDoc, getDoc } from 'firebase/firestore';
+import { collection, DocumentData, getDocs, query, where, doc, setDoc} from 'firebase/firestore';
 import useFileUpload from '@/app/hooks/useFileUpload';
 
 type UserEditModalProps = {

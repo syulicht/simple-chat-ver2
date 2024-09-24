@@ -1,11 +1,15 @@
 "use client"
 import { DocumentData } from 'firebase/firestore'
+import '../../globals.css'
+import styles from "../css/page.module.css"
 import React, { useState, useEffect, useRef, BaseSyntheticEvent } from 'react'
 import escapeStringRegexp from "escape-string-regexp";
 
 type Props = {
-    users: DocumentData[]
-    addfriend: (id : number) => void
+    id : number
+    users: DocumentData[],
+    addfriend: (id : number) => void,
+    close: ()=>void
 }
 
 const AddFriends = (props: Props) => {
@@ -16,8 +20,10 @@ const AddFriends = (props: Props) => {
 
     const submit = () => {
         const user = props.users.find(user => user.name === inputRef.current!.value);
-        if(user){
+        if(user && user.id !== props.id){
             props.addfriend(user.id);
+            inputRef.current!.value = "";
+            setSearchWord('');
         }
     }
 
@@ -37,17 +43,18 @@ const AddFriends = (props: Props) => {
         }
     }, [searchWord])
   return (
-    <div>
-        <form onSubmit={submit}>
+    <div className='overlay' onClick={props.close}>
+        <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+        <div>
             <input type='text' onChange={(e) => setSearchWord(e.target.value)} ref={inputRef}/>
-            <input type='hidden' />
-            <button type='submit'>Add</button>
-        </form>
+            <button onClick={submit}>Add</button>
+        </div>
         <ul>
             {filterList.map(li => (
                 <div key={li.id} onClick={e => inputField(e)}>{li.name}</div>
                 ))}
         </ul>
+        </div>
     </div>
   )
 }

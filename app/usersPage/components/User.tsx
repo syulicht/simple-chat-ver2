@@ -67,7 +67,7 @@ function User(props: UserProps) {
   return (
     <>
     <div onClick={link} className={style.user}>
-    <div><Image className={style.icon} src={`${url}`} alt={"image"} width={100} height={100} style={{objectFit: "contain"}}/></div>
+    <div><Image className={style.icon} src={`${url}`} alt={"image"} width={100} height={100} style={{objectFit: "cover"}}/></div>
     <div className={style.userContents}>
       <div className={style.name}>{props.user.name}</div>
       <div className={style.quote}>{props.user.quote}</div>

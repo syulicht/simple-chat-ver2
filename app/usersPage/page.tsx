@@ -30,7 +30,7 @@ function Page() {
     })}, []);
   return (
     <div className='main'>
-      <Sidebar friendIds={[]} users={users.map(user => user.data)}/>
+      <Sidebar friendIds={[]} users={users.map(user => user.property)} addfriend={()=> {}} id={0} setfriend={() => {}}/>
       <div className={style.content}>
       <div className={style.usersList}>
       {users.map((u) => !u.property.delete && (<User key={u.id} user={u.property} id={u.id}/>))}

@@ -1,31 +1,31 @@
 "use client"
 import Image from 'next/image'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import style from '../css/page.module.css'
 import { DocumentData } from 'firebase/firestore'
-import Friend from '@/app/friendsPage/components/Friend'
+import { usePathname } from 'next/navigation'
+import FriendsList from '@/app/chatSpace/components/FriendsList'
 
 type Props = {
+  id: number,
   friendIds : number[],
-  users : DocumentData[]
+  users : DocumentData[],
+  addfriend: (id: number) => void,
+  setfriend: (id: number) => void
 }
 
 const Sidebar = (props : Props) => {
-  const [friends, setFriends] = useState<DocumentData[]>([]);
-  useEffect(() => {
-    if(props.friendIds.length !== 0){
-      setFriends(props.friendIds.map(id => props.users.find(user => user.id === id) as DocumentData));
-    }
-  }, [props.users, props.friendIds]);
+  const path = usePathname();
 
   return (
     <aside className={style.sidebar}>
         <div className={style.logo}>
             <Image src="/what is the matter.png" alt='' width={300} height={150} style={{objectFit: "cover"}}/>
         </div>
-        {friends.map(friend => 
-          friend && <Friend key={friend.id} user={friend}/>
-        )}
+        {
+          path === "/usersPage" ? (<></>) :
+          path === "/chatSpace" ? (<FriendsList users={props.users} addfriend={props.addfriend} friendIds={props.friendIds} id={props.id} setfriend={props.setfriend}/>) : <></>
+        }
     </aside>
   )
 }
