@@ -5,11 +5,6 @@
     background:#fff;
 }
 
-.main {
-  display: flex;
-  justify-content: space-around;
-}
-
 .content{
   width: 65%;
   box-sizing: border-box;
@@ -17,7 +12,7 @@
 }
 
 .sidebar{
-  width: 400px;
+  width: 30%;
   background: linear-gradient(90deg, #FFAF76 0%, rgba(255, 175, 118, 0) 100%);
   display: flex;
   flex-direction: column;
@@ -26,6 +21,7 @@
   height: auto; /* 自動的に高さを調整 */
   min-height: 100vh;
   position: relative;
+  overflow: hidden;
 }
 
 .logo {
@@ -33,12 +29,13 @@
   height: 150px;
   background-color: white;
   border-radius: 20px;
-  position: absolute;
-  top: 100px;
+  margin-top: 100px;
 }
 
 .usersList {
   padding: 20px;
+  height: 80vh;
+  overflow: auto;
   box-shadow: 0 0 10px rgb(0 0 0 / 60%);
   border-radius: 20px;
 }
@@ -51,7 +48,6 @@
 
 .icon {
   margin: 20px;
-  border: solid;
   border-radius: 50%;
 }
 
