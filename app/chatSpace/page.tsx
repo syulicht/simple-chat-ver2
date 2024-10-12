@@ -2,7 +2,7 @@
 import { db } from '@/lib/firebase/firebase';
 import { collection, doc, DocumentData, getDocs, onSnapshot, query, updateDoc, where } from 'firebase/firestore';
 import { useSearchParams } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
 import Sidebar from '../usersPage/components/Sidebar';
 import '../globals.css';
 import styles from "./css/page.module.css"
@@ -60,6 +60,7 @@ const Page = () => {
     }, [user])
 
   return (
+    <Suspense fallback={<div>Loading...</div>}>
     <div className='main'>
     <Sidebar friendIds={user?.property.friendIds ? user?.property.friendIds : []} users={users} addfriend={addFriend} id={user?.property.id} setfriend={setFriend}/>
     <div className={styles.mainContent}>
@@ -71,6 +72,7 @@ const Page = () => {
     }
     </div>
     </div>
+    </Suspense>
   )
 }
 
